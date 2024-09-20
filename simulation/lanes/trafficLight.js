@@ -24,3 +24,6 @@ class TrafficLightSystem {
         const trafficDensity = this.vehicles.length
     }
 }
+
+// TODO: Needed for waiting times of each vehicle in lanes
+// setInterval()
