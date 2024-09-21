@@ -10,7 +10,7 @@ class TrafficLightSystem {
         this.laneHandle = laneHandle
     }
 
-    addVehicle(vehicle) {
+    addDetectedVehicle(vehicle) {
         this.vehicles.push(vehicle);
     }
 
@@ -23,7 +23,32 @@ class TrafficLightSystem {
         const averageWaitingTime = totalWaitingTime / this.vehicles.length
         const trafficDensity = this.vehicles.length
     }
+
+    printList() {
+        console.log(this.vehicles)
+    }
 }
 
 // TODO: Needed for waiting times of each vehicle in lanes
 // setInterval()
+// * also if the light countdown comes to an near end of 5 seconds, it will start to compute the total duration of the green light
+
+if (require.main === module) {
+    const trafficLight = new TrafficLightSystem()
+
+    const vehicle1 = new Vehicle()
+    const vehicle2 = new Vehicle()
+    const vehicle3 = new Vehicle()
+    const vehicle4 = new Vehicle()
+    
+    trafficLight.addDetectedVehicle(vehicle1)
+    trafficLight.addDetectedVehicle(vehicle2)
+    trafficLight.addDetectedVehicle(vehicle3)
+    trafficLight.addDetectedVehicle(vehicle4)
+
+    setInterval(() => {
+        trafficLight.updateWaitingTimeOfVehicles()
+        console.log('Updating waiting time')
+        trafficLight.printList()
+    },1000)
+}
