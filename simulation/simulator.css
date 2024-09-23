@@ -1,33 +1,101 @@
 body {
-    background-color: rgb(156, 195, 98);
+    background-color: black;
     margin: 0;
     height: 100vh;
-    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.road {
-    width: 1000px;
-    height: 50px;
+.map {
+    width: 981px;
+    height: 700px;
+    background-color: #A6A6A6;
+    margin: auto;
+    position: relative;
+}
+
+.pavement1,
+.pavement2,
+.pavement3,
+.pavement4 {
+    position: absolute;
+    width: 420px;
+    height: 281px;
+    background-color: #F7F2EF;
+}
+
+
+.pavement1 {
+    top: 0;
+    left: 0;
+    border-radius: 0 0 30px 0;
+}
+
+.pavement2 {
+    top: 0;
+    right: 0;
+    border-radius: 0 0 0 30px;
+}
+
+.pavement3 {
+    bottom: 0;
+    left: 0;
+    border-radius: 0 30px 0 0;
+}
+
+.pavement4 {
+    bottom: 0;
+    right: 0;
+    border-radius: 30px 0 0 0;
+}
+
+#lane1,
+#lane2 {
+    position: absolute;
+    width: 981px;
+    height: 70px;
+    top: 281px;
+    background-color: #A6A6A6;
 }
 
 #lane1 {
     position: relative;
-    background-color: gray;
     overflow: hidden;
 }
 
 #lane2 {
     position: relative;
-    background-color: aliceblue;
     overflow: hidden;
+}
+
+#lane3,
+#lane4 {
+    position: absolute;
+    width: 70px;
+    height: 700px;
+    background-color: #A6A6A6;
+    top: 0;
+}
+
+#lane3 {
+    overflow: hidden;
+    left: 420px;
+}
+
+#lane4 {
+    overflow: hidden;
+    left: 490px;
 }
 
 .vehicle {
     position: absolute;
     transform: rotate(90deg);
+    z-index: 10;
 }   
 
 .car img{
-    height: 75px;
+    height: 65px;
     
 }

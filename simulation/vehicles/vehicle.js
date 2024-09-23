@@ -27,7 +27,7 @@ const emergency = [
  * The Parent Class that inherent the controls of the vehicles category
  */
 export class Vehicle {
-    constructor(vehicleType, lane, xPos = -100, yPos = 10, stopPos = {x: 750, y:null}) {
+    constructor(vehicleType, lane, xPos = -100, yPos = 10, stopPos = {x: null, y:null}) {
         // Default xPos will serve as the starting point of spawning
         this.arrivalTime = Date.now()
         this.waitingTime = 0
