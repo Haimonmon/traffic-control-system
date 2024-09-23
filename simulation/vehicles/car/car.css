@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: coral;
+}
+
+
+.car img{
+    height: 75px;
+}
+
+

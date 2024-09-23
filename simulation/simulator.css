@@ -1,0 +1,33 @@
+body {
+    background-color: rgb(156, 195, 98);
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.road {
+    width: 1000px;
+    height: 50px;
+}
+
+#lane1 {
+    position: relative;
+    background-color: gray;
+    overflow: hidden;
+}
+
+#lane2 {
+    position: relative;
+    background-color: aliceblue;
+    overflow: hidden;
+}
+
+.vehicle {
+    position: absolute;
+    transform: rotate(90deg);
+}   
+
+.car img{
+    height: 75px;
+    
+}
