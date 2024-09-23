@@ -27,7 +27,7 @@ const emergency = [
  * The Parent Class that inherent the controls of the vehicles category
  */
 export class Vehicle {
-    constructor(vehicleType, lane, xPos = -100, yPos = 10, stopPos = {x: null, y:null}) {
+    constructor(vehicleType, lane, xPos = -100, yPos = 10, stopPos = {x: 285, y:null}) {
         // Default xPos will serve as the starting point of spawning
         this.arrivalTime = Date.now()
         this.waitingTime = 0
@@ -120,7 +120,7 @@ export class Vehicle {
         this.speed = 0
     }
 
-    isVehicleInFront(vehicleInFront, safeDistance = 100) {
+    isVehicleInFront(vehicleInFront, safeDistance = 80) {
         // 50 gap between vehicle
 
         const distance = Math.abs(vehicleInFront.xPos - this.xPos) // ! Horizontal testing

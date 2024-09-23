@@ -5,8 +5,8 @@ const lanes = []
 
 const lane1 = document.getElementById('lane1')
 const lane2 = document.getElementById('lane2')
-lanes.push(lane1)
-// lanes.push(lane2)
+// lanes.push(lane1)
+lanes.push(lane2)
 
 
 const startSimulation = () => {
