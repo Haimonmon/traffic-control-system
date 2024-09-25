@@ -8,7 +8,7 @@ body {
     align-items: center;
 }
 
-.map {
+#map {
     width: 981px;
     height: 700px;
     background-color: #A6A6A6;
@@ -336,11 +336,11 @@ body {
 
 .vehicle {
     position: absolute;
-    transform: rotate(90deg);
+    /* transform: rotate(90deg); */
     z-index: 10;
 }   
 
-.car img{
-    height: 54px;
-    
+.car img {
+    height: 50px;  
 }
+

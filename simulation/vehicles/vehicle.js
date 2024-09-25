@@ -27,17 +27,28 @@ const emergency = [
  * The Parent Class that inherent the controls of the vehicles category
  */
 export class Vehicle {
-    constructor(vehicleType, lane, xPos = -100, yPos = 10, stopPos = {x: 285, y:null}) {
+    /**
+     * 
+     * @param {*} vehicleType 
+     * @param {*} lane 
+     * @param {*} stopPos Traffic Light Positions
+     */
+    constructor(vehicleType, lane, stopPos = {x:null, y:135}) {
         // Default xPos will serve as the starting point of spawning
         this.arrivalTime = Date.now()
         this.waitingTime = 0
-        this.lane = lane 
+        this.lane = lane
         this.vehicleType = vehicleType
 
-        this.xPos = xPos
-        this.yPos = yPos
-        // this.width = width
-        // this.height = height
+        this.directionIs = {
+            pointInEastBound: this.lane.laneDirection === 'east-bound',
+            pointInWestBound: this.lane.laneDirection === 'west-bound',
+            pointInNorthBound: this.lane.laneDirection === 'north-bound',
+            pointInSouthBound: this.lane.laneDirection === 'south-bound'
+        }
+
+        this.xPos = this.setStartingPositionX();
+        this.yPos = this.setStartingPositionY();
         this.speed = 5
 
         this.stopPos = stopPos
@@ -47,8 +58,8 @@ export class Vehicle {
         this.vehicleContainerElement.classList.add('vehicle')
         this.vehicleContainerElement.classList.add(vehicleType)
 
-        this.vehicleContainerElement.style.left = `${xPos}px`
-        this.vehicleContainerElement.style.top = `${yPos}%`
+        this.vehicleDegree = this.moveDirection()
+        this.vehicleContainerElement.style.transform = `rotate(${this.vehicleDegree}deg)`;
 
         this.imgVehicleElement = document.createElement('img')
         this.imgVehicleElement.src = this.setVehicleImage(vehicleType)
@@ -56,7 +67,44 @@ export class Vehicle {
 
         this.vehicleContainerElement.appendChild(this.imgVehicleElement)
 
-        this.lane.appendChild(this.vehicleContainerElement)
+        this.lane.laneElement.appendChild(this.vehicleContainerElement)
+    }
+
+    setStartingPositionX() {
+        if (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound) return -100;
+        if (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound) return 20;
+    }
+
+    setStartingPositionY() {
+        if (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound) return 10;
+        if (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound) return -100;
+
+    }
+
+    moveDirection() {
+        if (this.directionIs.pointInWestBound) {
+            this.vehicleContainerElement.style.left = `${this.xPos}px`
+            this.vehicleContainerElement.style.top = `${this.yPos}px`
+            return 90
+        }
+
+        if (this.directionIs.pointInEastBound) {
+            this.vehicleContainerElement.style.right = `${this.xPos}px`
+            this.vehicleContainerElement.style.top = `${this.yPos}px`
+            return -90
+        }
+
+        if (this.directionIs.pointInNorthBound) {
+            this.vehicleContainerElement.style.top = `${this.yPos}px`
+            this.vehicleContainerElement.style.left = `${this.xPos}px`
+            return 180
+        }
+
+        if (this.directionIs.pointInSouthBound) {
+            this.vehicleContainerElement.style.bottom = `${this.yPos}px`
+            this.vehicleContainerElement.style.left = `${this.xPos}px`
+            return 0
+        }
     }
 
     randomVehicleStyle(array) {
@@ -80,7 +128,35 @@ export class Vehicle {
         this.waitingTime = (Date.now() - this.arrivalTime) / 1000;
     }
 
-    move(vehicleInFront = null) {
+    checkVehicleInFront() {
+        let vehicleInFront = null;
+
+        // if (index > 0 && this.generatedVehicles[index - 1].lane === vehicle.lane) {
+        //     vehicleInFront = this.generatedVehicles[index - 1];
+        // }
+
+        const listOfVehiclesInLane = this.lane.laneInVehicle
+
+        for (let i = 0; i < listOfVehiclesInLane.length; i++) {
+           
+            const otherVehicle = listOfVehiclesInLane[i - 1]
+
+            if(otherVehicle === this) {
+                continue;
+            }
+
+            if (i > 0 && otherVehicle.lane === this.lane && this.isVehicleInFront(otherVehicle)) {
+                vehicleInFront = otherVehicle
+                break;
+            }
+        }
+        return vehicleInFront
+    }
+
+    move() {
+       
+        let vehicleInFront = this.checkVehicleInFront()
+
         if (this.speed > 0) {
             if (vehicleInFront && this.isVehicleInFront(vehicleInFront)) {
                 this.stop()
@@ -88,9 +164,9 @@ export class Vehicle {
             }
 
             // * HORIZONTAL MOVEMENTS
-            if (this.stopPos.x !== null) {
+            if (this.stopPos.x !== null && (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound)) {
                 this.xPos += this.speed;
-                this.vehicleContainerElement.style.left = `${this.xPos}px`
+                this.moveDirection()
 
                 if (this.xPos >= this.stopPos.x) {
                     this.stop()
@@ -100,9 +176,9 @@ export class Vehicle {
             }
 
             // * VERTICAL MOVEMENTS
-            if (this.stopPos.y !== null) {
+            if (this.stopPos.y !== null && (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound)) {
                 this.yPos += this.speed;
-                this.vehicleContainerElement.style.top = `${this.yPos}%`;
+                this.moveDirection()
 
                 if (this.yPos >= this.stopPos.y) {
                     this.stop();
@@ -111,8 +187,13 @@ export class Vehicle {
                 return
             }
 
-            this.xPos += this.speed;
-            this.vehicleContainerElement.style.left = `${this.xPos}px`
+            if (this.vehicleDegree === 90 || this.vehicleDegree === -90) {
+                this.xPos += this.speed; // * Horizontal Movements
+            } else {
+                this.yPos += this.speed // * Vertical Movements
+            }
+            
+            this.moveDirection()
         }
     }
 
@@ -120,16 +201,43 @@ export class Vehicle {
         this.speed = 0
     }
 
-    isVehicleInFront(vehicleInFront, safeDistance = 80) {
+    isVehicleInFront(vehicleInFront, safeDistance = 10) {
         // 50 gap between vehicle
 
-        const distance = Math.abs(vehicleInFront.xPos - this.xPos) // ! Horizontal testing
+        const currentVehicleLeft = this.xPos;
+        const currentVehicleRight = this.xPos + this.vehicleContainerElement.offsetHeight;
+        
+        const vehicleInFrontLeft = vehicleInFront.xPos;
+        const vehicleInFrontRight = vehicleInFront.xPos + vehicleInFront.vehicleContainerElement.offsetHeight;
 
-        return distance > 0 && distance < safeDistance;
+        // const distance = currentVehicleRight - vehicleInFrontLeft // ! Horizontal testing
+
+        if (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound) {
+            console.log(this.lane.laneInVehicle.length)
+            const distance = (vehicleInFront.xPos - vehicleInFront.vehicleContainerElement.offsetHeight) - safeDistance
+
+            return distance < this.xPos;
+        }
+
+        if (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound) {
+            const distance = (vehicleInFront.yPos - vehicleInFront.vehicleContainerElement.offsetHeight) - safeDistance
+
+            return distance < this.yPos
+        }
+        
     }
 }
 
+/**
+ * Generates a vehicle
+ */
 export class GenerateVehicle {
+    /**
+     * 
+     * @param {*} trafficVolume vehicle amount in terms of events
+     * @param {*} lanes 
+     * @param {*} maxVehicle 
+     */
     constructor(trafficVolume, lanes, maxVehicle) {
         this.trafficVolume = trafficVolume // This will be on percentages: 0.10 = 10% example, so by tenths 10,20,30,40,50,60,70,80,90,100 percentages
         this.vehicleType = ['car']; // ['Car','Car','Car','Car', 'Bus', ,'Car', 'Truck', 'Emergency']
@@ -155,10 +263,10 @@ export class GenerateVehicle {
             const vehicle = new Vehicle(pickedVehicle, pickedLane)
 
             this.generatedVehicles.push(vehicle)
+            pickedLane.addVehicleInLane(vehicle)
 
-            console.log(`${pickedVehicle} taking lane ${pickedLane.id}`)
+            console.log(`${pickedVehicle} taking lane ${pickedLane.laneIdName}`)
         }
-        
     }
     
     adjustTimeInterval() {
@@ -176,37 +284,50 @@ export class GenerateVehicle {
     startMovingVehicles() {
         const update = () => {
             this.updateVehicle()
-            requestAnimationFrame(update)
         }
 
-        requestAnimationFrame(update)
+        update()
     }
 
-    updateVehicle() {
-        this.generatedVehicles.forEach((vehicle, index) => {
+    async updateVehicle() {
+        const movePromise = this.generatedVehicles.map((vehicle) => {
+            return new Promise((resolve) => {
 
-            let vehicleInFront = null;
+                vehicle.move()
 
-            if (index > 0 && this.generatedVehicles[index - 1].lane === vehicle.lane) {
-                vehicleInFront = this.generatedVehicles[index - 1];
+                resolve(vehicle)
+            });
+        });
+
+        const movingVehicles = await Promise.all(movePromise)
+
+        movingVehicles.forEach((vehicle) => {
+            const laneWidth = vehicle.lane.laneElement.clientWidth;
+            const laneHeight = vehicle.lane.laneElement.clientHeight;
+
+            
+            if (vehicle.vehicleDegree === 90 || vehicle.vehicleDegree === -90) {
+                if (vehicle.xPos > laneWidth ) {
+                    this.terminateVehicle(this.generatedVehicles.indexOf(vehicle));
+                }
+            } else {
+                if (vehicle.yPos > laneHeight ) {
+                    this.terminateVehicle(this.generatedVehicles.indexOf(vehicle));
+                }
             }
-
-            vehicle.move(vehicleInFront);
-
-            // To Determine .lane width to set the end point as terminator to remove car object form the somulation
-            const laneWidth = vehicle.lane.clientWidth;
-
-            if (vehicle.xPos > laneWidth) {
-                this.terminateVehicle(index)
-            }
-        })
+        });
     }
 
     terminateVehicle(index) {
-        const vehicleElement = this.generatedVehicles[index].vehicleContainerElement;
-        vehicleElement.remove();
+        const vehicleElement = this.generatedVehicles[index];
+        vehicleElement.vehicleContainerElement.remove();
 
         this.generatedVehicles.splice(index, 1);
+
+        const indexInLane = vehicleElement.lane.laneInVehicle.indexOf(vehicleElement);
+
+        vehicleElement.lane.terminateVehicleInLane(indexInLane)
+
         console.log('Vehicle remove from the Simulation: Terminated')
     }
 
@@ -221,6 +342,8 @@ export class GenerateVehicle {
                 this.generate()
                 lastGenerationVehicle = currentTime
             }
+
+            this.startMovingVehicles()
             requestAnimationFrame(generateVehicles)
         };
        requestAnimationFrame(generateVehicles)
@@ -233,3 +356,5 @@ export class GenerateVehicle {
 // }
 
 // module.exports = { Vehicle }
+
+// !The porblem your car is not stopping due to generatedVehicle, Remember you have a list or a class of ` new Lane() `
