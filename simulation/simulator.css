@@ -67,6 +67,11 @@ body {
     left: 0;
 }
 
+.structure-foundation1 .parked-vehicle1,
+.structure-foundation1 .parked-vehicle2 {
+    position: absolute;
+}
+
 .structure-foundation1 .building1,
 .structure-foundation1 .building2,
 .structure-foundation1 .building3,
@@ -85,6 +90,193 @@ body {
     background-color: #7ECB6B;
     height: 34px;
     width: 34px;
+    border-radius: 50%;
+}
+
+.structure-foundation1 .roof1,
+.structure-foundation1 .roof2,
+.structure-foundation1 .roof3,
+.structure-foundation1 .roof4,
+.structure-foundation1 .roof5,
+.structure-foundation1 .roof6,
+.structure-foundation1 .roof7,
+.structure-foundation1 .roof8,
+.structure-foundation1 .roof9 {
+    position: absolute;
+    background-color: #A15757;
+    z-index: 5;
+}
+
+.structure-foundation1 .parked-vehicle1 img {
+    position: absolute;
+    top: 29px;
+    height: 74px;
+    left: 106px;
+}
+
+.structure-foundation1 .parked-vehicle2 img {
+    position: absolute;
+    top: 195px;
+    left: 72px;
+    height: 50px;
+    transform: rotate(180deg);
+}
+
+.structure-foundation1 .roof1 {
+    width: 55px;
+    height: 178px;
+    top: 1px;
+    left: 306px;
+}
+
+.structure-foundation1 .roof7 {
+    top: 212px;
+    left: 142px;
+    width: 109px;
+    height: 38px;
+}
+
+.structure-foundation1 .roof8 {
+    top: 212px;
+    left: 0;
+    width: 69px;
+    height: 38px;
+}
+
+.structure-foundation1 .roof9 {
+    top: 1px;
+    left: 29px;
+    width: 29px;
+    height: 140px;
+}
+
+.structure-foundation1 .roof2 img{
+    position: absolute;
+    width: 108px;
+    height: 48px;
+    left: 252px;
+    top: 131px;
+}
+
+.structure-foundation1 .roof3 img{
+    position: absolute;
+    top: 198px;
+    left: 119px;
+    width: 74px;
+    height: 30px;
+    transform: rotate(90deg);
+    z-index: 40;
+}
+
+.structure-foundation1 .roof4 img{
+    position: absolute;
+    top: 197px;
+    left: 200px;
+    width: 74px;
+    height: 30px;
+    transform: rotate(-90deg);
+}
+
+.structure-foundation1 .roof5 img{
+    position: absolute;
+    top: 198px;
+    left: 18px;
+    width: 72px;
+    height: 30px;
+    transform: rotate(-90deg);
+}
+
+.structure-foundation1 .roof6 img{
+    position: absolute;
+    top: 112px;
+    left: 1px;
+    width: 57px;
+    height: 30px;
+}
+
+
+.road-markings-lane1-1,
+.road-markings-lane1-2,
+.road-markings-lane2-1,
+.road-markings-lane2-2,
+.road-markings-lane3-1,
+.road-markings-lane3-2,
+.road-markings-lane4-1,
+.road-markings-lane4-2 {
+    position: absolute;
+    background-color: #F0BB00;
+    border: none;
+}
+
+
+
+/* //* Horizontal Markings */
+.road-markings-lane1-1 {
+    width: 347px;
+    height:2px;
+    left: 0.99px;
+    bottom: -5px;
+    
+}
+
+.road-markings-lane1-2 {
+    left: 635px;
+    height: 2px;
+    width: 352px;
+    bottom: -5px;
+}
+
+.road-markings-lane2-1 {
+    width: 347px;
+    height:1.2px;
+    left: 0.99px;
+    top: -5px;
+}
+
+.road-markings-lane2-2 {
+    left: 635px;
+    height: 1.2px;
+    width: 352px;
+    top: -5px;
+}
+
+/* * Vertical Markings */
+.road-markings-lane3-1 {
+    height: 209px;
+    width: 2px;
+    transform: rotate(0deg);
+    right: 10px;
+    top: -10px;
+}
+
+
+.road-markings-lane3-2 {
+    height: 208px;
+    width: 2px;
+    transform: rotate(0deg);
+    bottom: -9px;
+    right: 10px;
+}
+
+.road-markings-lane4-1 {
+    top: -10px;
+    height: 209px;
+    width: 2px;
+}
+
+.road-markings-lane4-2 {
+    height: 209px;
+    width: 2px;
+    bottom: -10px;
+}
+
+.structure-foundation1 .tree7,
+.structure-foundation1 .tree8,
+.structure-foundation1 .tree9,
+.structure-foundation1 .tree10,
+.structure-foundation1 .tree11 {
+    position: absolute;
+    background-color: #7ECB6B;
     border-radius: 50%;
 }
 
@@ -165,11 +357,47 @@ body {
     left: 295px;
 }
 
+.structure-foundation1 .tree7 {
+    top: 109px;
+    left: 168px;
+    width: 34px;
+    height: 34px;
+}
+
+.structure-foundation1 .tree8 {
+    top: 120px;
+    left: 185px;
+    width: 34px;
+    height: 34px;
+}
+
+.structure-foundation1 .tree9 {
+    width: 23px;
+    height: 14px;
+    top: 113px;
+    left: 195px;
+}
+
+.structure-foundation1 .tree10 {
+    width: 15px;
+    height: 13px;
+    top: 127px;
+    left: 208px;
+}
+
+.structure-foundation1 .tree11 {
+    top: 146px;
+    left: 196px;
+    width: 20px;
+    height: 17px;
+}
+
 .structure-foundation2 {
     border-radius: 0 0 0 15px;
     top: 0;
     right: 0;
 }
+
 
 .structure-foundation3 .building1,
 .structure-foundation3 .building2 {

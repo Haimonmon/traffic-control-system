@@ -32,6 +32,6 @@ const startingCrossingNumberInRoad2 = 3
 createLanes(numOfLanesInRoad2, startingLaneNumInRoad2, startingCrossingNumberInRoad2)
 
 
-startSimulation()
+// startSimulation()
 
 

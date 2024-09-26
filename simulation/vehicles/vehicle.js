@@ -33,7 +33,7 @@ export class Vehicle {
      * @param {*} lane 
      * @param {*} stopPos Traffic Light Positions 275 for x on traffic lights then 180 y for verticals
      */
-    constructor(vehicleType, lane, stopPos = {x:null, y:180}) {
+    constructor(vehicleType, lane, stopPos = {x:275, y:null}) {
         // Default xPos will serve as the starting point of spawning
         this.arrivalTime = Date.now()
         this.waitingTime = 0
@@ -78,7 +78,6 @@ export class Vehicle {
     setStartingPositionY() {
         if (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound) return 10;
         if (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound) return -100;
-
     }
 
     moveDirection() {
@@ -166,11 +165,10 @@ export class Vehicle {
     }
 
     move() {
-        // ! Fix this area right here!!!
         let vehicleInFront = this.checkVehicleInFront()
 
-        if (this.lane.laneInVehicle.length > 3) {
-            this.stopPos.y = null
+        if (this.lane.laneInVehicle.length > 4) {
+            this.stopPos.x = null
         }
 
         if (vehicleInFront && this.isVehicleInFront(vehicleInFront)) {
