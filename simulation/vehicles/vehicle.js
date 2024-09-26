@@ -31,9 +31,9 @@ export class Vehicle {
      * 
      * @param {*} vehicleType 
      * @param {*} lane 
-     * @param {*} stopPos Traffic Light Positions
+     * @param {*} stopPos Traffic Light Positions 275 for x on traffic lights then 180 y for verticals
      */
-    constructor(vehicleType, lane, stopPos = {x:null, y:135}) {
+    constructor(vehicleType, lane, stopPos = {x:null, y:180}) {
         // Default xPos will serve as the starting point of spawning
         this.arrivalTime = Date.now()
         this.waitingTime = 0
@@ -146,6 +146,7 @@ export class Vehicle {
             }
 
             if (i > 0 && otherVehicle.lane === this.lane && this.isVehicleInFront(otherVehicle)) {
+                //this.monitor('lane1')
                 vehicleInFront = otherVehicle
                 break;
             }
@@ -153,55 +154,79 @@ export class Vehicle {
         return vehicleInFront
     }
 
+    monitor(laneName) {
+        if (this.lane.laneIdName === laneName) {
+            console.log(this.speed, this.lane.laneIdName)
+            if (!(this.xPos >= this.stopPos.x)) {
+                console.log(this.lane.laneInVehicle)
+                console.log(this.xPos >= this.stopPos.x)
+                console.log(this.xPos, '>=', this.stopPos.x)
+            } 
+        }
+    }
+
     move() {
-       
+        // ! Fix this area right here!!!
         let vehicleInFront = this.checkVehicleInFront()
 
-        if (this.speed > 0) {
-            if (vehicleInFront && this.isVehicleInFront(vehicleInFront)) {
-                this.stop()
-                return
-            }
-
-            // * HORIZONTAL MOVEMENTS
-            if (this.stopPos.x !== null && (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound)) {
-                this.xPos += this.speed;
-                this.moveDirection()
-
-                if (this.xPos >= this.stopPos.x) {
-                    this.stop()
-                }
-
-                return
-            }
-
-            // * VERTICAL MOVEMENTS
-            if (this.stopPos.y !== null && (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound)) {
-                this.yPos += this.speed;
-                this.moveDirection()
-
-                if (this.yPos >= this.stopPos.y) {
-                    this.stop();
-                }
-
-                return
-            }
-
-            if (this.vehicleDegree === 90 || this.vehicleDegree === -90) {
-                this.xPos += this.speed; // * Horizontal Movements
-            } else {
-                this.yPos += this.speed // * Vertical Movements
-            }
-            
-            this.moveDirection()
+        if (this.lane.laneInVehicle.length > 3) {
+            this.stopPos.y = null
         }
+
+        if (vehicleInFront && this.isVehicleInFront(vehicleInFront)) {
+            this.stop()
+        }
+
+        //this.monitor('lane2')
+        //this.monitor('lane1')
+        // * HORIZONTAL MOVEMENTS
+        if (this.stopPos.x !== null && (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound)) {
+            this.xPos += this.speed;
+            this.moveDirection()
+
+            if (this.xPos >= this.stopPos.x) {
+                this.stop()
+            }
+            return
+        }
+
+        // * VERTICAL MOVEMENTS
+        if (this.stopPos.y !== null && (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound)) {
+            this.yPos += this.speed;
+            this.moveDirection()
+
+            if (this.yPos >= this.stopPos.y) {
+                this.stop();
+            }
+
+            return
+        }
+
+        // console.log(this.lane.laneInVehicle)
+        // console.log(this.speed === 0)
+        
+        if (this.speed === 0 && this.stopPos.x === null) {
+            this.speed = 5;
+        }
+
+        if (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound) {
+            this.xPos += this.speed; // * Horizontal Movements
+        }
+
+        if (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound) {
+            this.yPos += this.speed // * Vertical Movements
+        }
+            
+        this.moveDirection()
+        
+        
     }
 
     stop() {
         this.speed = 0
     }
 
-    isVehicleInFront(vehicleInFront, safeDistance = 10) {
+    isVehicleInFront(vehicleInFront, safeDistance = 17) {
         // 50 gap between vehicle
 
         const currentVehicleLeft = this.xPos;
@@ -213,7 +238,7 @@ export class Vehicle {
         // const distance = currentVehicleRight - vehicleInFrontLeft // ! Horizontal testing
 
         if (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound) {
-            console.log(this.lane.laneInVehicle.length)
+            // console.log(this.lane.laneInVehicle.length)
             const distance = (vehicleInFront.xPos - vehicleInFront.vehicleContainerElement.offsetHeight) - safeDistance
 
             return distance < this.xPos;
