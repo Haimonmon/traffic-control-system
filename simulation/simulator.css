@@ -1098,3 +1098,40 @@ body {
     height: 50px;  
 }
 
+
+
+/* * Traffic Lights */
+
+#lane1 #traffic-light1,
+#lane2 #traffic-light2 {
+    position: absolute;
+    height: 100px;
+    width: 50px;
+}
+
+/* #lane1 #traffic-light1 {
+    left:280px;
+}
+
+#lane2 #traffic-light2 {
+    right: 280px;
+} */
+
+#traffic-light3,
+#traffic-light4 {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+}
+
+.red-light {
+    background-color: rgb(221, 28, 28);
+}
+
+.green-light {
+    background-color: greenyellow;
+}
+
+.amber-light {
+    background-color: orange;
+}

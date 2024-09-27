@@ -28,12 +28,11 @@ const emergency = [
  */
 export class Vehicle {
     /**
-     * 
      * @param {*} vehicleType 
      * @param {*} lane 
-     * @param {*} stopPos Traffic Light Positions 275 for x on traffic lights then 180 y for verticals
+     * @param {*} stopPos Traffic Light Positions 275 for x on traffic lights then 180 y for verticals | stopPos = {x:275, y:null}
      */
-    constructor(vehicleType, lane, stopPos = {x:275, y:null}) {
+    constructor(vehicleType, lane) {
         // Default xPos will serve as the starting point of spawning
         this.arrivalTime = Date.now()
         this.waitingTime = 0
@@ -51,7 +50,7 @@ export class Vehicle {
         this.yPos = this.setStartingPositionY();
         this.speed = 5
 
-        this.stopPos = stopPos
+        this.stopPos = lane.trafficLight.position
 
         //create DOM element:
         this.vehicleContainerElement = document.createElement('div')
@@ -165,11 +164,12 @@ export class Vehicle {
     }
 
     move() {
-        let vehicleInFront = this.checkVehicleInFront()
 
-        if (this.lane.laneInVehicle.length > 4) {
-            this.stopPos.x = null
+        if (this.speed === 0) {
+            this.updateWaitingTime()
         }
+       
+        let vehicleInFront = this.checkVehicleInFront()
 
         if (vehicleInFront && this.isVehicleInFront(vehicleInFront)) {
             this.stop()
@@ -178,22 +178,22 @@ export class Vehicle {
         //this.monitor('lane2')
         //this.monitor('lane1')
         // * HORIZONTAL MOVEMENTS
-        if (this.stopPos.x !== null && (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound)) {
+        if ((this.lane.trafficLight.redLight || this.lane.trafficLight.amberLight) && (this.directionIs.pointInWestBound || this.directionIs.pointInEastBound)) {
             this.xPos += this.speed;
             this.moveDirection()
 
-            if (this.xPos >= this.stopPos.x) {
+            if (this.xPos >= this.stopPos.x - 10 && this.xPos <= this.stopPos.x - 10) {
                 this.stop()
             }
             return
         }
 
         // * VERTICAL MOVEMENTS
-        if (this.stopPos.y !== null && (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound)) {
+        if ((this.lane.trafficLight.redLight || this.lane.trafficLight.amberLight) && (this.directionIs.pointInNorthBound || this.directionIs.pointInSouthBound)) {
             this.yPos += this.speed;
             this.moveDirection()
 
-            if (this.yPos >= this.stopPos.y) {
+            if (this.yPos >= this.stopPos.y - 10 && this.yPos <= this.stopPos.y - 10) {
                 this.stop();
             }
 
@@ -203,7 +203,8 @@ export class Vehicle {
         // console.log(this.lane.laneInVehicle)
         // console.log(this.speed === 0)
         
-        if (this.speed === 0 && this.stopPos.x === null) {
+        // * MOVE OR DRIVE VEHICLE!!
+        if (this.speed === 0 && this.lane.trafficLight.greenLight ) {
             this.speed = 5;
         }
 

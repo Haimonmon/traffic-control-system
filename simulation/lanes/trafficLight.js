@@ -1,4 +1,4 @@
-// const { fuzzyy } = require('../fuzzyLogic/fuzzy.js')
+import { fuzzyy } from '../fuzzyLogic/fuzzy.js'
 
 export class Lane {
     /**
@@ -9,9 +9,11 @@ export class Lane {
      */
     constructor(map, laneIdName, numOfPedestrianCrossing, startingCrossingNum) {
         this.laneInVehicle = []
+
         this.numOfPedestrianCrossing = numOfPedestrianCrossing
         this.startingCrossingNum = startingCrossingNum
-        this.laneIdName = laneIdName
+        this.laneIdName = laneIdName;
+        this.trafficLight = null; // * Traffic Light Class
 
         this.laneElement = document.getElementById(laneIdName)
         this.laneDirection = this.laneElement.classList[1];
@@ -22,6 +24,10 @@ export class Lane {
         // this.createPedestrianCrossingElement()
 
         // map.appendChild(this.laneElement)
+    }
+
+    addTrafficLight(trafficLight) {
+        this.trafficLight = trafficLight
     }
 
     addVehicleInLane(vehicle) {
@@ -53,23 +59,140 @@ export class TrafficLight {
      * @param {*} laneHandle lane where the traffic light is on Position
      * @param {*} position coordinates of Traffic light on the lane
      */
-    constructor(laneHandle, position) {
-        // this.redLight = false
-        // this.amberLight = false
-        // this.greenLight = false
+    constructor(laneHandle, trafficLightElementName) {
+        this.redLight = true
+        this.amberLight = false
+        this.greenLight = false
+        
+        this.lanes = null; // * Array of all lanes
+
         this.light = null;
-        this.position = position
+        this.position = null; // * Needs to be object {}
         this.laneHandle = laneHandle
 
+        this.redDuration = 15
+        this.amberDuration = 5
+        this.greenDuration = 5;
+
+        this.currentCount = this.redDuration
+
         // Create element traffic light for a container
-        this.trafficLightElement = document.createElement('div')
-        this.trafficLightElement.classList.add('traffic-light')
-        this.trafficLightElement.classList.add('red-light')
+        this.trafficLightElementName = trafficLightElementName
+        this.trafficLightElement = null;
 
-        this.trafficLightElement.style.left = `${position.x}px`
-        this.trafficLightElement.style.top = `${position.y}px`
+        // this.trafficLightElement = document.createElement('div')
+        // this.trafficLightElement.classList.add('traffic-light')
+        // this.trafficLightElement.classList.add('red-light')
 
-        this.laneHandle.appendChild(this.trafficLightElement)
+        // this.laneHandle.appendChild(this.trafficLightElement)
+    }
+
+    addLanes(listOfLanes) {
+        this.lanes = listOfLanes
+    }
+
+    setTrafficLightStatus() {
+        this.trafficLightElement = document.getElementById(this.trafficLightElementName);
+
+        // * Update class name based on current light status
+        if (this.redLight) {
+            this.trafficLightElement.className = 'red-light';
+        } else if (this.amberLight) {
+            this.trafficLightElement.className = 'amber-light';
+        } else if (this.greenLight) {
+            this.trafficLightElement.className = 'green-light';
+        }
+    }
+
+    startTrafficLightCycle() {
+        this.redLight = true;
+        this.currentCount = this.redDuration; // Reset countdown
+        this.setTrafficLightStatus();
+        this.startCountdown();
+    }
+    
+    startCountdown() {
+        const countdownInterval = setInterval(() => {
+            this.currentCount--;
+          
+            if (this.redLight) {
+                if (this.currentCount === 5) {
+                    this.greenDuration = this.handleLightDuration()
+                }
+
+                if (this.currentCount <= 0) {
+                    this.redLight = false;
+                    this.greenLight = true; // Switch to green
+                    this.currentCount = this.greenDuration; // * Reset countdown for green
+                    this.setTrafficLightStatus();
+                }
+            } else if (this.greenLight) {
+                if (this.currentCount <= 0) {
+                    this.greenLight = false;
+                    this.amberLight = true; // Switch to amber
+                    this.currentCount = this.amberDuration; // TODO Reset countdown for amber
+                    this.setTrafficLightStatus();
+                }
+            } else if (this.amberLight) {
+                if (this.currentCount <= 0) {
+                    this.amberLight = false;
+                    this.redLight = true; // Switch back to red
+                    this.currentCount = this.redDuration; // ! Reset countdown for red
+                    this.setTrafficLightStatus();
+                    clearInterval(countdownInterval);
+                }
+            }
+        }, 1000);
+
+    }
+
+    /**
+     * * This will set vehicle stop light positions
+     */
+    setPositionOfTrafficLight () {
+        this.trafficLightElement = document.getElementById(this.trafficLightElementName)
+        
+        console.log(`Element: ${this.trafficLightElement.id} has been set to respective ${this.laneHandle.laneElement.id}`)
+
+        if (this.laneHandle.laneElement.classList[1] === 'west-bound') {
+            this.position = {x: 275, y:null}
+            this.trafficLightElement.style.left = `${this.position.x}px`
+        }
+
+        if (this.laneHandle.laneElement.classList[1] === 'east-bound') {
+            this.position = {x: 275, y:null}
+            this.trafficLightElement.style.right = `${this.position.x}px`
+        }
+
+        if (this.laneHandle.laneElement.classList[1] === 'south-bound') {
+            this.position = {x: null, y:140}
+            this.trafficLightElement.style.bottom = `${this.position.y}px`
+        }
+
+        if (this.laneHandle.laneElement.classList[1] === 'north-bound') {
+            this.position = {x: null, y:140}
+            this.trafficLightElement.style.top = `${this.position.y}px`
+        }
+
+        this.setTrafficLightStatus()
+    }
+
+    lightGreen() {
+        this.redLight = false
+        this.amberLight = false
+        this.greenLight = true
+    }
+
+    lightRed() {
+        this.redLight = true
+        this.amberLight = false
+        this.greenLight = false
+    }
+
+    lightAmber() {
+        this.redLight = false
+        this.amberLight = true
+        this.greenLight = false
     }
 
     updateWaitingTimeOfVehicles() {
@@ -77,10 +200,12 @@ export class TrafficLight {
     }
 
     handleLightDuration() {
-        const totalWaitingTime = this.vehicles.reduce((total, vehicle) => total + vehicle.waitingTime, 0);
-        const averageWaitingTime = totalWaitingTime / this.vehicles.length
-        const trafficDensity = this.vehicles.length
-        // const fuzzyLogic = fuzzyy(trafficDensity, averageWaitingTime);
+        const totalWaitingTime = this.laneHandle.laneInVehicle.reduce((total, vehicle) => total + vehicle.waitingTime, 0);
+        const averageWaitingTime = totalWaitingTime / this.laneHandle.laneInVehicle.length
+        const trafficDensity = this.laneHandle.laneInVehicle.length
+        const fuzzyLogic = fuzzyy(trafficDensity, averageWaitingTime) || 15;
+
+        return fuzzyLogic
     }
 
     printList() {
@@ -88,6 +213,50 @@ export class TrafficLight {
     }
 }
 
+
+export class TrafficLightSystem {
+    constructor(trafficLights) {
+        this.trafficLights = trafficLights // * Array of Traffic lIGHTS
+        this.currentIndex = 0
+    }
+
+    updateTrafficLights() {
+        if (this.currentIndex === 0) {
+            this.startTrafficLightCountdown(this.currentIndex)
+        }
+
+        setInterval(() => {
+            const currentTrafficLight = this.trafficLights[this.currentIndex]
+            
+            if (currentTrafficLight.greenLight && currentTrafficLight.currentCount <= 15) {
+                // * Move to the next traffic light
+                this.currentIndex += 1;
+                
+                // * If the current index exceeds the array, reset it or stop the interval
+                if (this.currentIndex >= this.trafficLights.length) {
+                    this.currentIndex = 0; // Reset to first light or handle it accordingly
+                }
+    
+                // * Start countdown for the next traffic light
+                this.startTrafficLightCountdown(this.currentIndex);
+            }
+            console.clear()
+            console.log(currentTrafficLight.trafficLightElementName,'Current Index of the Traffic Light')
+            console.log('currentCount:',currentTrafficLight.currentCount)
+            
+        },1000)
+    }
+
+    activateTrafficLightSystem() {
+        this.updateTrafficLights()
+    }
+
+    startTrafficLightCountdown(index) {
+        const currentLight = this.trafficLights[index]
+        currentLight.startTrafficLightCycle()
+    }
+
+}
 // TODO: Needed for waiting times of each vehicle in lanes
 // setInterval()
 // * also if the light countdown comes to an near end of 5 seconds, it will start to compute the total duration of the green light
@@ -110,4 +279,4 @@ export class TrafficLight {
 //         console.log('Updating waiting time')
 //         trafficLight.printList()
 //     },1000)
-// }
+// 

@@ -96,9 +96,6 @@ const fuzzification = (trafficDensity, trafficDensityTriangle, waitingTime, wait
  * @returns 
  */
 const applyFuzzyRuleSets = (traffic, waiting) => {
-    console.log(traffic)
-    console.log(waiting)
-
     if (traffic.heavyDensity > 0 && waiting.longTime > 0) {
         return "long";
     } else if (traffic.mediumDensity > 0 && waiting.mediumTime > 0 ) {
@@ -114,9 +111,9 @@ const applyFuzzyRuleSets = (traffic, waiting) => {
  * @returns 
  */
 const defuzzify = (output) => {
-    if (output === 'long') return 60;
-    if (output === 'medium') return 30;
-    return 15; // for short
+    if (output === 'long') return 20;
+    if (output === 'medium') return 15;
+    return 10; // for short
 }
 
 /**
@@ -140,7 +137,7 @@ const triangleInputs = (valueA, valueB, valueC) => {
  * @param {*} averageWaitingTime the waiting time of all the vehicles in the lane
  * @returns
  */
-const fuzzyy = (trafficDensity, averageWaitingTime) => {
+export const fuzzyy = (trafficDensity, averageWaitingTime) => {
     // TODO: Apply this on Dom for customized fuzzy logic
     const trafficDensityTriangle = densityTriangleInputs()
     const waitingTimeTriangle = timeTriangleInputs()
@@ -153,23 +150,21 @@ const fuzzyy = (trafficDensity, averageWaitingTime) => {
     // * Rule sets as outputs
     const ruleSets = applyFuzzyRuleSets(fuzzyTrafficDensity, fuzzyWaitingTime);
 
-    console.log(ruleSets)
-
     const crispDurationValue = defuzzify(ruleSets);
 
     return crispDurationValue;
 }
 
-if (require.main === module) {
-    let trafficDensity = 50;
-    let waitingTime = 22;
+// if (require.main === module) {
+//     let trafficDensity = 10;
+//     let waitingTime = 2500.10;
 
-    const fuzzyLogic = fuzzyy(trafficDensity, waitingTime);
+//     const fuzzyLogic = fuzzyy(trafficDensity, waitingTime);
 
-    console.log(fuzzyLogic);
-}
+//     console.log(fuzzyLogic);
+// }
 
-module.exports = { fuzzyy }
+// module.exports = { fuzzyy }
 /**
  * ? Reference:
  * * PDF File: https://www.researchgate.net/profile/Mohamed-Mourad-Lafifi/post/How_do_I_interprete_the_output_of_fuzzy_logic_inference_engine_for_traffic_signal_control/attachment/59d645cf79197b80779a0e25/AS%3A454775935377409%401485438440658/download/Fuzzy+Traffic+Control+System.pdf
