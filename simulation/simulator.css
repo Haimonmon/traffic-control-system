@@ -700,6 +700,124 @@ body {
 .structure-foundation3 .tree7 {
     background-color: #7ECB6B;
     position: absolute;
+    border-radius: 50%;
+}
+
+.structure-foundation3 .roof1,
+.structure-foundation3 .roof2,
+.structure-foundation3 .roof3,
+.structure-foundation3 .roof4 {
+    position: absolute;
+}
+
+.structure-foundation3 .parked-vehicle1,
+.structure-foundation3 .parked-vehicle2 {
+    position: absolute;
+}
+
+.structure-foundation3 .parked-vehicle1 img {
+    position: absolute;
+    top: 92px;
+    left: 4px;
+    height: 50px;
+}
+
+.structure-foundation3 .parked-vehicle2 img {
+    position: absolute;
+    height: 50px;
+    left: 40px;
+    top: 100px;
+    transform: rotate(180deg);
+}
+
+.structure-foundation3 .roof1 {
+    background-color: #4b7958;
+    width: 112px;
+    height: 134px;
+    top: 105px;
+    left: 259px;
+}
+
+.structure-foundation3 .roof2 img {
+    width: 112px;
+    height: 31px;
+    top: 105px;
+    left: 260px;
+    position: absolute;
+    transform: rotate(180deg);
+}
+
+.structure-foundation3 .roof3 {
+    background-color: #3a5f44;
+    height: 134px;
+    width: 54px;
+    top: 106px;
+    left: 317px;
+}
+
+.structure-foundation3 .roof4 img {
+    width: 112px;
+    height: 31px;
+    top: 208px;
+    left: 259px;
+    position: absolute;
+}
+
+.structure-foundation3 .billboard img{
+    top: 186px;
+    left: 12px;
+    width: 80px;
+    position: absolute;
+    height: 35px;
+}
+
+.structure-foundation3 .tree1 {
+    top: 51px;
+    left: 81px;
+    height: 23px;
+    width: 21px;
+}
+
+.structure-foundation3 .tree2 {
+    top: 51px;
+    width: 34px;
+    height: 34px;
+    left: 92px;
+}
+
+.structure-foundation3 .tree3 {
+    top: 32px;
+    left: 250px;
+    width: 34px;
+    height: 34px;
+}
+
+.structure-foundation3 .tree4 {
+    width: 18px;
+    height: 15px;
+    top: 38px;
+    left: 322px;
+}
+
+.structure-foundation3 .tree5 {
+    top: 46px;
+    left: 328px;
+    width: 18px;
+    height: 15px;
+}
+
+.structure-foundation3 .tree6 {
+    top: 32px;
+    left: 334px;
+    width: 22px;
+    height: 19px;
+}
+
+.structure-foundation3 .tree7 {
+    top: 35px;
+    left: 349px;
+    width: 15px;
+    height: 14px;
 }
 
 .structure-foundation3 .building1 {
@@ -707,6 +825,7 @@ body {
     height: 163px;
     top: 86px;
     left: 243px;
+    border-radius: 10px 30px 0 0;
 }
 
 .structure-foundation3 .building2 {
@@ -714,6 +833,7 @@ body {
     height: 215px;
     top: 34px;
     left: 140px;
+    border-radius: 10px 30px 0 0;
 }
 
 .structure-foundation3 .building3 {
@@ -721,6 +841,7 @@ body {
     height: 161px;
     top: 88px;
     left: 69px;
+    border-radius: 10px 10px 0 0;
 }
 
 .structure-foundation3 .building4 {
