@@ -756,6 +756,137 @@ body {
     right: 0;
 }
 
+.structure-foundation4 .building1,
+.structure-foundation4 .building2,
+.structure-foundation4 .building3,
+.structure-foundation4 .building4,
+.structure-foundation4 .building5 {
+    position: absolute;
+}
+
+.structure-foundation4 .tree1,
+.structure-foundation4 .tree2,
+.structure-foundation4 .tree3,
+.structure-foundation4 .tree4,
+.structure-foundation4 .tree5 {
+        position: absolute;
+        background-color: #7ECB6B;
+        border-radius: 50%;
+}
+
+.structure-foundation4 .tree1 {
+    top: 11px;
+    left: 26px;
+    width: 34px;
+    height: 34px;
+}
+
+.structure-foundation4 .tree2 {
+    top: 34px;
+    left: 43px;
+    width: 26px;
+    height: 25px;
+}
+
+.structure-foundation4 .tree3 {
+    top: 34px;
+    width: 14px;
+    height: 14px;
+    left: 24px;
+}
+
+.structure-foundation4 .tree4 {
+    top: 40px;
+    left: 31px;
+    width: 17px;
+    height: 22px;
+}
+
+.structure-foundation4 .tree5 {
+    top: 78px;
+    left: 16px;
+    width: 34px;
+    height: 34px;
+}
+
+.structure-foundation4 .tall-billboard {
+    position: absolute;
+    top: 197px;
+    left: 26px;
+    width: 23px;
+    height: 10px;
+    background-color: #463333;
+}
+
+.structure-foundation4 .garden1 {
+    position: absolute;
+    background-color: #D2E7A4;
+    top: 21px;
+    height: 204px;
+    left: 16px;
+    width: 44px;
+}
+
+.structure-foundation4 .billboard img {
+    top: 51px;
+    left: 331px;
+    width: 42.65px;
+    height: 59.04px;
+    position: absolute;
+}
+
+
+.structure-foundation4 .building1 {
+    top: 13px;
+    left: 301px;
+    width: 88px;
+    height: 177px;
+    background-color: #826262;
+}
+
+.structure-foundation4 .building2 {
+    top: 21px;
+    left: 311px;
+    width: 78px;
+    height: 162px;
+    background-color: #D9D9D9;
+}
+
+/* * OIL TANK */
+.structure-foundation4 .building3 {
+    top: 202px;
+    height: 36px;
+    width: 90px;
+    left: 299px;
+    border-radius: 35px 0 0 35px;
+    border: 1px solid #871111;
+}
+
+.structure-foundation4 .building4 {
+    top: 29px;
+    left: 85px;
+    height: 173px;
+    width: 173px;
+    background-color: #938a8a;
+}
+
+.structure-foundation4 .building5 {
+    top: 49px;
+    left: 104px;
+    width: 135px;
+    height: 133px;
+    background-color: #d9d9d9;
+}
+
+.structure-foundation4 .signage {
+    position: absolute;
+    top: 42px;
+    left: 77px;
+    height: 39px;
+    width: 8px;
+    background-color: #e4c34b;
+}
+
 #lane1,
 #lane2 {
     position: absolute;
