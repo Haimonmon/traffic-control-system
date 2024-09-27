@@ -398,7 +398,281 @@ body {
     right: 0;
 }
 
+.structure-foundation2 .building1,
+.structure-foundation2 .building2,
+.structure-foundation2 .building3,
+.structure-foundation2 .building4,
+.structure-foundation2 .building5,
+.structure-foundation2 .building6 {
+    position: absolute;
+}
 
+.structure-foundation2 .garden1,
+.structure-foundation2 .garden2 {
+    position: absolute;
+    background-color: #D2E7A4;
+}
+
+.structure-foundation2 .tree1,
+.structure-foundation2 .tree2,
+.structure-foundation2 .tree3,
+.structure-foundation2 .tree4,
+.structure-foundation2 .tree5,
+.structure-foundation2 .tree6 {
+    position: absolute;
+    background-color: #7ECB6B;
+    border-radius: 50%;
+}
+
+.structure-foundation2 .parked-vehicle1 {
+    position: absolute;
+}
+
+.structure-foundation2 .delivery-package1,
+.structure-foundation2 .delivery-package2,
+.structure-foundation2 .delivery-package3,
+.structure-foundation2 .delivery-package4,
+.structure-foundation2 .delivery-package5 {
+    position: absolute;
+    background-color: #C7903E;
+    width: 8px;
+    height: 8px;
+}
+
+.structure-foundation2 .stair1,
+.structure-foundation2 .stair2,
+.structure-foundation2 .stair3 {
+    position: absolute;
+    background-color: #9F9A9A;
+}
+
+.structure-foundation2 .roof1,
+.structure-foundation2 .roof2,
+.structure-foundation2 .roof3,
+.structure-foundation2 .roof4,
+.structure-foundation2 .roof5,
+.structure-foundation2 .roof6 {
+    position: absolute;
+}
+
+.structure-foundation2 .roof1 {
+    width: 40px;
+    height: 196px;
+    left: 349px;
+    top: 11px;
+    background-color: #937e7e;
+}
+
+.structure-foundation2 .roof2 img {
+    position: absolute;
+    width: 40px;
+    height: 17px;
+    left: 349px;
+    top: 11px;
+    transform: rotate(180deg);
+}
+
+.structure-foundation2 .roof4 img {
+    position: absolute;
+    width: 40px;
+    height: 17px;
+    top: 190px;
+    left: 349px;
+}
+
+.structure-foundation2 .roof5 img {
+    position: absolute;
+    top: 45px;
+    left: 16px;
+    height: 32px;
+    width: 75px;
+}
+
+.structure-foundation2 .roof6 {
+    top: 0;
+    left: 54px;
+    width: 37px;
+    height: 77px;
+    background-color: #a34242;
+}
+
+.structure-foundation2 .billboard {
+    position: absolute;
+    top: 160px;
+    left: 65.87px;
+    height: 12px;
+    width: 101px;
+    background-color: #D9D9D9;
+    transform: rotate(44deg);
+}
+
+.structure-foundation2 .roof3 {
+    background-color: #735b5b;
+    top: 11px;
+    left: 369px;
+    width: 20px;
+    height: 196px;
+}
+
+.structure-foundation2 .stair1 {
+    top: 160px;
+    left: 328px;
+    width: 12px;
+    height: 20px;
+}
+
+.structure-foundation2 .stair2 {
+    top: 185px;
+    left: 328px;
+    width: 12px;
+    height: 20px;
+}
+
+.structure-foundation2 .stair3 {
+    top: 209px;
+    left: 328px;
+    width: 12px;
+    height: 15px;
+}
+
+.structure-foundation2 .delivery-package1 {
+    top: 6px;
+    left: 259px;
+}
+
+.structure-foundation2 .delivery-package2 {
+    top: 5.37px;
+    left: 269.76px;
+    transform: rotate(-10deg);
+}
+
+.structure-foundation2 .delivery-package3 {
+    top: 15px;
+    left: 269px;
+}
+
+.structure-foundation2 .delivery-package4 {
+    top: 24px;
+    left: 282px;
+}
+
+.structure-foundation2 .delivery-package5 {
+    top: 18.1px;
+    left: 293.17px;
+    transform: rotate(-15deg);
+}
+
+.structure-foundation2 .parked-vehicle1 img{
+    position: absolute;
+    height: 121px;
+    top: 35px;
+    left: 260px;
+    transform: rotate(180deg);
+}
+
+.structure-foundation2 .tree1 {
+    width: 34px;
+    height: 34px;
+    top: 94px;
+    left: 8px;
+}
+
+.structure-foundation2 .tree2 {
+    width: 26px;
+    height: 25px;
+    top: 118px;
+    left: 16px;
+}
+
+.structure-foundation2 .tree3 {
+    width: 34px;
+    height: 34px;
+    top: 0;
+    left: 111px;
+}
+
+.structure-foundation2 .tree4 {
+    width: 23px;
+    height: 23px;
+    top: 11px;
+    left: 135px;
+}
+
+.structure-foundation2 .tree5 {
+    top: 23px;
+    left: 144px;
+    width: 27px;
+    height: 28px;
+}
+
+.structure-foundation2 .tree6 {
+    top: 13px;
+    left: 147px;
+    width: 24px;
+    height: 17px;
+}
+
+.structure-foundation2 .garden1 {
+    width: 69px;
+    height: 33px;
+    top: 1px;
+    left: 175px;
+}
+
+.structure-foundation2 .garden2 {
+    width: 32px;
+    height: 107px;
+    left: 216px;
+    top: 0;
+}
+
+.structure-foundation2 .building1 {
+    background-color: #7D6AA7;
+    top: 53px;
+    left: 47px;
+    width: 145px;
+    height: 163px;
+}
+
+.structure-foundation2 .building2 {
+    background-color: #D9D9D9;
+    top: 53px;
+    left: 47px;
+    width: 59px;
+    height: 54px;
+}
+
+.structure-foundation2 .building3 {
+    background-color: #903939;
+    top: 0;
+    left: 16px;
+    height: 77px;
+    width: 75px;
+}
+
+.structure-foundation2 .building4 {
+    background-color: #405499;
+    top: 123px;
+    left: 211px;
+    width: 37px;
+    height: 93px;
+}
+
+.structure-foundation2 .building5 {
+    background-color: #2E69C0;
+    width: 71px;
+    height: 155px;
+    top: 5px;
+    left: 318px;
+}
+
+.structure-foundation2 .building6 {
+    background-color: #2E69C0;
+    width: 49px;
+    height: 68px;
+    top: 156px;
+    left: 340px;
+}
 .structure-foundation3 .building1,
 .structure-foundation3 .building2 {
     position: absolute;
